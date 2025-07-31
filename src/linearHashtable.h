@@ -1,3 +1,9 @@
+#ifndef CHAINEDHASHTABLE_H
+#define CHAINEDHASHTABLE_H
+
+#include <iostream>
+#include <iomanip>
+
 /*
 LinearHashtable(int capacity = 499);//Constructor, that initializes the hash table.  It initializes the array for storing the data to size capacity.
 ~LinearHashtable(); //Deallocates memory used from the array pointer.
@@ -10,3 +16,4 @@ bool empty(); //returns true if the hash table is empty
 Type &operator[] (int ndx); //returns the value at position ndx
 friend ostream& operator<< <>(ostream& out, const LinearHashtable<T>& t); //Allows the user to output the hash table
 */
+#endif //CHSINEDHASHTABLE_H
