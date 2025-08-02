@@ -3,19 +3,13 @@
 
 #include <iostream>
 #include <iomanip>
-
-
-template <class T>
-struct Node {
-    T item; // The data stored in the node
-    T next; // Pointer to the next node in the chain
-};
+#include <stdexcept>
 
 template <class T>
 class LinearHashtable;
 
 template<class T>
-std::ostream& operator<<(std::ostream& out, const LinearHashtable<T>& t); //Allows the user to output the hash table
+std::ostream& operator<<(std::ostream& out, const LinearHashtable<T>& t); 
 
 template <class T>
 class LinearHashtable {
@@ -45,7 +39,7 @@ template<class T>
 LinearHashtable<T>::LinearHashtable(int capacity){
     this->capacity = capacity;
     this->size = 0;
-    htable = new T[capacity]; 
+    htable = new T[capacity](); 
 };
 
 template<class T>
@@ -95,10 +89,6 @@ T& LinearHashtable<T>::operator[](int ndx) {
     return htable[ndx];
 }
 
-template<class T>
-T& LinearHashtable<T>::operator[] (int ndx) {
-    return htable[ndx];
-}
 
 /*
 template<class T>bool LinearHashtable<T>::contains(T item); //Determines if an item is in the hash table
