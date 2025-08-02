@@ -1,5 +1,5 @@
-#ifndef CHAINEDHASHTABLE_H
-#define CHAINEDHASHTABLE_H
+#ifndef LINEARHASHTABLE_H
+#define LINEARHASHTABLE_H
 
 #include <iostream>
 #include <iomanip>
@@ -25,12 +25,12 @@ class LinearHashtable {
         int size(); //Determines the max capacity of the hash table
         bool empty(); //returns true if the hash table is empty
         T &operator[] (int ndx); //returns the value at position ndx
-        friend std::ostream& operator<<(std::ostream& out, const LinearHashtable<T> & t); //Allows the user to output the hash table
+        friend std::ostream& operator<< <>(std::ostream& out, const LinearHashtable<T> & t); //Allows the user to output the hash table
 
 
     private:
      int capacity;
-     int size;
+     int count;
      T* htable;
 
 };
@@ -38,7 +38,7 @@ class LinearHashtable {
 template<class T>
 LinearHashtable<T>::LinearHashtable(int capacity){
     this->capacity = capacity;
-    this->size = 0;
+    this->count = 0;
     htable = new T[capacity](); 
 };
 
@@ -58,12 +58,12 @@ void LinearHashtable<T>::add(T item) {
         key = (key + 1) % capacity;
     }
     htable[key] = item;
-    size++;
+    count++;
 }
 
 template<class T>
 bool LinearHashtable<T>::empty() {
-    return size == 0;
+    return count == 0;
 }
 
 template <class T>
@@ -76,12 +76,12 @@ std::ostream& operator<<(std::ostream& out, const LinearHashtable<T>& t) {
 
 template<class T>
 bool LinearHashtable<T>::full(){
-    return size == capacity; 
+    return count == capacity; 
 }
 
 template<class T> 
 int LinearHashtable<T>::size(){
-    return size;
+    return count;
 }
 
 template<class T>
@@ -89,12 +89,38 @@ T& LinearHashtable<T>::operator[](int ndx) {
     return htable[ndx];
 }
 
+template<class T>
+bool LinearHashtable<T>::contains(T item){
+    int key = item % capacity;
+    for(int i = 0; i < capacity; i++)
+    {
+        if (htable[key] == item) {
+            return true;
+        }
+        if (htable[key] == 0) { 
+            return false;
+        }
+        key = (key + 1) % capacity; 
+    }
+    return false; 
+}
 
-/*
-template<class T>bool LinearHashtable<T>::contains(T item); //Determines if an item is in the hash table
+template<class T>
+bool LinearHashtable<T>::remove(T item){
+    int key = item % capacity;
+    for(int i = 0; i < capacity; i++)
+    {
+        if (htable[key] == item) {
+            htable[key] = 0; 
+            count--;
+            return true; 
+        }
+        if (htable[key] == 0) { 
+            return false;
+        }
+        key = (key + 1) % capacity; 
+    }
+    return false; }
 
-template<class T>boo LinearHashtable<T>::remove(T item); //Removes the item from the hash table
+#endif // LINEARHASHTABLE_H
 
-template<class T>friend LinearHashtable<T>::ostream& operator<< <>(ostream& out, const LinearHashtable<T>& t); //Allows the user to output the hash table
-*/
-#endif //CHSINEDHASHTABLE_H

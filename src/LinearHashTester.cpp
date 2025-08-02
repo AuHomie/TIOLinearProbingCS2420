@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinearHashtable.h"
+#include "linearHashtable.h"
 
 void testHash();
 
